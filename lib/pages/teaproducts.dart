@@ -1,24 +1,24 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tradeapp/services/crud.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class milkproducts extends StatefulWidget {
+class teaproducts extends StatefulWidget {
   @override
-  _milkproductsState createState() => _milkproductsState();
+  _teaproductsState createState() => _teaproductsState();
 }
 
-class _milkproductsState extends State<milkproducts> {
+class _teaproductsState extends State<teaproducts> {
   crudMethods crudObj = new crudMethods();
   int temp, temp2, temp4, temp21;
   double temp1, temp31;
-  QuerySnapshot aavin;
-  QuerySnapshot assai;
+  QuerySnapshot roses;
+  QuerySnapshot chakra;
   @override
   void initState() {
-    crudObj.getaavin().then((results) {
+    crudObj.getroses().then((results) {
       setState(() {
-        aavin = results;
-        temp = aavin.documents.length;
+        roses = results;
+        temp = roses.documents.length;
         if (temp % 2 == 0) {
           temp = temp * 113;
           temp1 = temp.toDouble();
@@ -33,10 +33,10 @@ class _milkproductsState extends State<milkproducts> {
         // temp1 = temp.toDouble();
       });
     });
-    crudObj.getassai().then((results) {
+    crudObj.getchakra().then((results) {
       setState(() {
-        assai = results;
-        temp21 = assai.documents.length;
+        chakra = results;
+        temp21 = chakra.documents.length;
         if (temp21 % 2 == 0) {
           temp21 = temp21 * 120;
           temp31 = temp21.toDouble();
@@ -49,11 +49,10 @@ class _milkproductsState extends State<milkproducts> {
       });
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+     body: Padding(
         padding: EdgeInsets.all(10),
         child: SingleChildScrollView(
           
@@ -64,7 +63,7 @@ class _milkproductsState extends State<milkproducts> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Aavin Milk Products',
+                    '3 Roses',
 
                     style: TextStyle(fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -75,8 +74,8 @@ class _milkproductsState extends State<milkproducts> {
                     onPressed: () {
                       crudObj.getaavin().then((results) {
                         setState(() {
-                          aavin = results;
-                          temp = aavin.documents.length;
+                          roses = results;
+                          temp = roses.documents.length;
                           if (temp % 2 == 0) {
                             temp = temp * 113;
                             temp1 = temp.toDouble();
@@ -95,12 +94,12 @@ class _milkproductsState extends State<milkproducts> {
                   )
                 ],
               ),
-              aavingrid(),
+              rosesgrid(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Assai Milk Products',
+                    'Chakra Gold',
                     style: TextStyle(fontSize: 20,
                     fontWeight: FontWeight.bold
                     ),
@@ -110,8 +109,8 @@ class _milkproductsState extends State<milkproducts> {
                     onPressed: () {
                       crudObj.getassai().then((results) {
                         setState(() {
-                          assai = results;
-                          temp21 = assai.documents.length;
+                          chakra = results;
+                          temp21 = chakra.documents.length;
                           if (temp21 % 2 == 0) {
                             temp21 = temp21 * 120;
                             temp31 = temp21.toDouble();
@@ -127,23 +126,22 @@ class _milkproductsState extends State<milkproducts> {
                   )
                 ],
               ),
-              assaigrid(),
+              chakragrid(),
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget aavingrid() {
-    return aavin != null
+   Widget rosesgrid() {
+    return roses != null
         ? SizedBox(
             height: temp1,
             width: MediaQuery.of(context).size.width * 0.9,
             child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
-                itemCount: aavin.documents.length,
+                itemCount: roses.documents.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -158,15 +156,16 @@ class _milkproductsState extends State<milkproducts> {
                             children: <Widget>[
                               SizedBox(height: 15),
                               Image.network(
-                                aavin.documents[index].data['image'],
+                                roses.documents[index].data['image'],
+                                height: 110.0,
                               ),
                               Text(
-                                aavin.documents[index].data['name'],
+                                roses.documents[index].data['name'],
                                 style: TextStyle(fontSize: 20),
                               ),
                               Text(
                                 '₹ ' +
-                                    aavin.documents[index].data['price']
+                                    roses.documents[index].data['price']
                                         .toString(),
                                 style: TextStyle(fontSize: 20),
                               )
@@ -183,43 +182,40 @@ class _milkproductsState extends State<milkproducts> {
           );
   }
 
-  Widget assaigrid() {
-    return assai != null
+  Widget chakragrid(){
+    
+    return chakra != null
         ? SizedBox(
-            height: temp31,
+            height: temp1,
             width: MediaQuery.of(context).size.width * 0.9,
             child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
-                itemCount: assai.documents.length,
+                itemCount: chakra.documents.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Material(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                          borderRadius: BorderRadius.circular(30)),
                       elevation: 10.0,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
                         child: Container(
                           child: Column(
                             children: <Widget>[
-                              SizedBox(
-                                height: 15,
+                              SizedBox(height: 15),
+                              Image.network(
+                                chakra.documents[index].data['image'],
+                                height: 110.0,
                               ),
-                              Container(
-                                child: Image.network(
-                                    assai.documents[index].data['image']),
-                              ),
-                              SizedBox(height: 10),
                               Text(
-                                assai.documents[index].data['name'],
+                                chakra.documents[index].data['name'],
                                 style: TextStyle(fontSize: 20),
                               ),
                               Text(
                                 '₹ ' +
-                                    assai.documents[index].data['price']
+                                    chakra.documents[index].data['price']
                                         .toString(),
                                 style: TextStyle(fontSize: 20),
                               )
@@ -235,4 +231,4 @@ class _milkproductsState extends State<milkproducts> {
             child: CircularProgressIndicator(),
           );
   }
-}
+  }

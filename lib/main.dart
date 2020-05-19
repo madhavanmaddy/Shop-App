@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tradeapp/services/crud.dart';
 import 'package:tradeapp/pages/milkproducts.dart';
+import 'pages/teaproducts.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      routes: {
+        'milkproducts':(_)=>milkproducts(),
+        'teaproducts':(_)=>teaproducts(),
+      },
     );
   }
 }
@@ -58,27 +63,34 @@ void initState() {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        title: Text('Ambika Traders',style: TextStyle(
+          fontSize: 20.0,
+          color: Colors.black),),
+        centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.white,
       ),
-     body: SingleChildScrollView(
-       child:Column(
-         mainAxisAlignment: MainAxisAlignment.start,
-         children: <Widget>[
-           SizedBox(height: 5.0,),
-         Text(
-           greetings(),
-           style: headstyle,
-           ),
-           SizedBox(height:5.0),
-          Text(
-            'What do you want?',
-            style: headstyle,
-            ),
-            SizedBox(height:20.0),
-            categorygrid(),
-            SizedBox(height:20.0),
-         ],
+     body: Padding(
+       padding: const EdgeInsets.all(20.0),
+       child: SingleChildScrollView(
+         child:Column(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: <Widget>[
+             SizedBox(height: 5.0,),
+           Text(
+             greetings(),
+             style: headstyle,
+             ),
+             SizedBox(height:5.0),
+            Text(
+              'What do you want?',
+              style: headstyle,
+              ),
+              SizedBox(height:20.0),
+              categorygrid(),
+              SizedBox(height:20.0),
+           ],
+         ),
        ),
      ),
     );
@@ -113,7 +125,7 @@ void initState() {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> milkproducts()));
+                            Navigator.pushNamed(context, category.documents[index].data['path']);
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal:8),

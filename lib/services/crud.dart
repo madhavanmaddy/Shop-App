@@ -10,4 +10,10 @@ class crudMethods {
   getassai() async {
     return await Firestore.instance.collection('assai').getDocuments();
   }
+  getroses() async {
+    return await Firestore.instance.collection('roses').getDocuments();
+  }
+  getchakra() async {
+    return await Firestore.instance.collection('chakra').getDocuments();
+  }
 }
