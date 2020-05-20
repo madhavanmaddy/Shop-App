@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tradeapp/services/crud.dart';
 import 'package:tradeapp/pages/milkproducts.dart';
 import 'pages/teaproducts.dart';
+import 'pages/productpage.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,7 +47,6 @@ void initState() {
           temp21 = temp21 * 120;
           temp31 = temp21.toDouble();
         }
-        print('$temp31');
       });
     });
 
@@ -89,6 +89,7 @@ void initState() {
               SizedBox(height:20.0),
               categorygrid(),
               SizedBox(height:20.0),
+             
            ],
          ),
        ),

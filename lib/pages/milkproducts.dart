@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tradeapp/services/crud.dart';
+import 'package:tradeapp/pages/productpage.dart';
 
 class milkproducts extends StatefulWidget {
   @override
@@ -162,7 +163,7 @@ class _milkproductsState extends State<milkproducts> {
                               ),
                               Text(
                                 aavin.documents[index].data['name'],
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 15),
                               ),
                               Text(
                                 '₹ ' +
@@ -193,37 +194,47 @@ class _milkproductsState extends State<milkproducts> {
                     crossAxisCount: 2),
                 itemCount: assai.documents.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      elevation: 10.0,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Container(
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                child: Image.network(
-                                    assai.documents[index].data['image']),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                assai.documents[index].data['name'],
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Text(
-                                '₹ ' +
-                                    assai.documents[index].data['price']
-                                        .toString(),
-                                style: TextStyle(fontSize: 20),
-                              )
-                            ],
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=>productpage(
+                        assai.documents[index].data['name'],
+                      assai.documents[index].data['image'],
+                      assai.documents[index].data['desc'],
+                      assai.documents[index].data['price']
+                      )));
+                    },
+                                      child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Material(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        elevation: 10.0,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  child: Image.network(
+                                      assai.documents[index].data['image']),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  assai.documents[index].data['name'],
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                Text(
+                                  '₹ ' +
+                                      assai.documents[index].data['price']
+                                          .toString(),
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
