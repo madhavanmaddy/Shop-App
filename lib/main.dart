@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tradeapp/pages/newuihome.dart';
 import 'package:tradeapp/services/crud.dart';
 import 'package:tradeapp/pages/milkproducts.dart';
 import 'pages/teaproducts.dart';
@@ -8,14 +9,13 @@ import 'pages/productpage.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
       routes: {
-        'milkproducts':(_)=>milkproducts(),
-        'teaproducts':(_)=>teaproducts(),
+        'milkproducts': (_) => milkproducts(),
+        'teaproducts': (_) => teaproducts(),
       },
     );
   }
@@ -28,12 +28,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   crudMethods crudObj = new crudMethods();
-QuerySnapshot category;
-double temp31;
+  QuerySnapshot category;
+  double temp31;
   int temp21;
-@override
-void initState() {
-     
+  @override
+  void initState() {
     crudObj.getCategory().then((results) {
       setState(() {
         category = results;
@@ -57,50 +56,57 @@ void initState() {
   Widget build(BuildContext context) {
     double sh = MediaQuery.of(context).size.height;
     double sw = MediaQuery.of(context).size.width;
-    final headstyle = TextStyle(
-      fontSize: sw*0.06
-    );
+    final headstyle = TextStyle(fontSize: sw * 0.06);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Ambika Traders',style: TextStyle(
-          fontSize: 20.0,
-          color: Colors.black),),
+        title: Text(
+          'Ambika Traders',
+          style: TextStyle(fontSize: 20.0, color: Colors.black),
+        ),
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.white,
       ),
-     body: Padding(
-       padding: const EdgeInsets.all(20.0),
-       child: SingleChildScrollView(
-         child:Column(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: <Widget>[
-             SizedBox(height: 5.0,),
-           Text(
-             greetings(),
-             style: headstyle,
-             ),
-             SizedBox(height:5.0),
-            Text(
-              'What do you want?',
-              style: headstyle,
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 5.0,
               ),
-              SizedBox(height:20.0),
+              Text(
+                greetings(),
+                style: headstyle,
+              ),
+              SizedBox(height: 5.0),
+              Text(
+                'What do you want?',
+                style: headstyle,
+              ),
+              SizedBox(height: 20.0),
               categorygrid(),
-              SizedBox(height:20.0),
-             
-           ],
-         ),
-       ),
-     ),
+              SizedBox(height: 20.0),
+              RaisedButton(
+                  child: Text('New UI'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => NewUIhome()));
+                  })
+            ],
+          ),
+        ),
+      ),
     );
   }
+
   Widget categorygrid() {
     return category != null
         ? SizedBox(
             height: temp31,
-            width: (MediaQuery.of(context).size.width)*0.90,
+            width: (MediaQuery.of(context).size.width) * 0.90,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -126,27 +132,31 @@ void initState() {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, category.documents[index].data['path']);
+                            Navigator.pushNamed(context,
+                                category.documents[index].data['path']);
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal:8),
+                            padding: EdgeInsets.symmetric(horizontal: 8),
                             child: Container(
                               child: Column(
                                 children: <Widget>[
-                                  SizedBox(height:10),
+                                  SizedBox(height: 10),
                                   Container(
-                                    child: Image.network(category.documents[index].data['image'],
-                                    height: 130.0,
-                                    width:130.0,
+                                    child: Image.network(
+                                      category.documents[index].data['image'],
+                                      height: 130.0,
+                                      width: 130.0,
                                     ),
                                   ),
-                                   Text(category.documents[index].data['name'],style: TextStyle(fontSize:20),),
+                                  Text(
+                                    category.documents[index].data['name'],
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                       
                       ],
                     ),
                   ),
@@ -154,7 +164,9 @@ void initState() {
               },
             ),
           )
-        : Center(child: CircularProgressIndicator(),);
+        : Center(
+            child: CircularProgressIndicator(),
+          );
   }
 
   String greetings() {
