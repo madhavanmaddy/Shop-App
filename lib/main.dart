@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tradeapp/pages/cartpage.dart';
 import 'package:tradeapp/pages/newuihome.dart';
+import 'package:tradeapp/pages/profilepage.dart';
+import 'package:tradeapp/pages/signinpage.dart';
 import 'package:tradeapp/services/crud.dart';
 import 'package:tradeapp/pages/milkproducts.dart';
 import 'pages/teaproducts.dart';
@@ -90,11 +93,23 @@ class _MyHomePageState extends State<MyHomePage> {
               categorygrid(),
               SizedBox(height: 20.0),
               RaisedButton(
-                  child: Text('New UI'),
+                  child: Text('Signin Page'),
                   onPressed: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => NewUIhome()));
-                  })
+                        MaterialPageRoute(builder: (context) => SigninPage()));
+                  }),
+                  RaisedButton(
+                  child: Text('Profile Page'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ProfilePage()));
+                  }),
+                  RaisedButton(
+                  child: Text('Cart Page'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CartPage()));
+                  }),
             ],
           ),
         ),
@@ -144,8 +159,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Container(
                                     child: Image.network(
                                       category.documents[index].data['image'],
-                                      height: 130.0,
-                                      width: 130.0,
+                                      height: 120.0,
+                                      width: 120.0,
                                     ),
                                   ),
                                   Text(
