@@ -35,7 +35,7 @@ class _SigninPageState extends State<SigninPage> {
             GestureDetector(
               onTap: () {
                 signInWithGoogle().whenComplete(() {
-                  Navigator.pop(context, true);
+                
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (_) => MyHomePage()));
                 });
