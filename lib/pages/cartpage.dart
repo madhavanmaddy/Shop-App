@@ -22,9 +22,9 @@ class _CartPageState extends State<CartPage> {
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
           child: StreamBuilder(
-            stream: Firestore.instance.collection('cart').document('ID').collection(uid).snapshots(),
+            stream: Firestore.instance.collection('users').document('ID').collection('cart').snapshots(),
             builder: (context, snapshot) {
-              return !snapshot.hasData
+              return snapshot.hasData
               ? ListView.builder(
                 shrinkWrap: true,
                 itemCount: snapshot.data.documents.length,
@@ -60,7 +60,7 @@ class _CartPageState extends State<CartPage> {
                                   child: ClipRect(
                                       child: Image(
                                         image: NetworkImage(
-                                        snapshot.data.documents[index]['image'],
+                                        snapshot.data.documents[index]['img'],
                                         ),
                                         height: 100,
                                         width: 100,

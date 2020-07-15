@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tradeapp/pages/cartpage.dart';
-import 'package:tradeapp/pages/newuihome.dart';
 import 'package:tradeapp/pages/profilepage.dart';
 import 'package:tradeapp/pages/signinpage.dart';
 import 'package:tradeapp/services/crud.dart';
-import 'package:tradeapp/pages/milkproducts.dart';
-import 'pages/teaproducts.dart';
-import 'pages/productpage.dart';
-
+import 'pages/products.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SigninPage(),
-      routes: {
-        'milkproducts': (_) => milkproducts(),
-        'teaproducts': (_) => teaproducts(),
-      },
+      // home: SigninPage(),
+      home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -36,19 +30,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int temp21;
   @override
   void initState() {
-    crudObj.getCategory().then((results) {
+    crudObj.getdata('category').then((results) {
       setState(() {
         category = results;
-        temp21 = category.documents.length;
-        if (temp21 % 2 == 0) {
-          temp21 = temp21 * 120;
-          temp31 = temp21.toDouble();
-        } else {
-          // temp = projects.documents.length;
-          temp21 = temp21 + 1;
-          temp21 = temp21 * 120;
-          temp31 = temp21.toDouble();
-        }
       });
     });
 
@@ -57,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double sh = MediaQuery.of(context).size.height;
     double sw = MediaQuery.of(context).size.width;
     final headstyle = TextStyle(fontSize: sw * 0.06);
     return Scaffold(
@@ -67,9 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
           'Ambika Traders',
           style: TextStyle(fontSize: 20.0, color: Colors.black),
         ),
+        iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.white,
+      ),
+      drawer: Drawer(
+        child: Column(children: [
+          Text('Sign In Page')
+        ],),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -90,100 +79,60 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: headstyle,
               ),
               SizedBox(height: 20.0),
-              categorygrid(),
-              SizedBox(height: 20.0),
-              RaisedButton(
-                  child: Text('Signin Page'),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => SigninPage()));
-                  }),
-                  RaisedButton(
-                  child: Text('Profile Page'),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ProfilePage()));
-                  }),
-                  RaisedButton(
-                  child: Text('Cart Page'),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => CartPage()));
-                  }),
+               RaisedButton(
+                        child: Text('Signin Page'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SigninPage()));
+                        }),
+                    RaisedButton(
+                        child: Text('Profile Page'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ProfilePage()));
+                        }),
+                    RaisedButton(
+                        child: Text('Cart Page'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CartPage()));
+                        }),
+                      RaisedButton(
+                        child: Text('Aavin Milk'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => productsPage('Aavin Milk')));
+                        }),
+                      RaisedButton(
+                        child: Text('Assai Milk'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => productsPage('Assai Milk')));
+                        }), 
+                        RaisedButton(
+                        child: Text('Tea'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => productsPage('Tea')));
+                        }), 
+                        RaisedButton(
+                        child: Text('Homam'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => productsPage('Homam')));
+                        }),  
+                         RaisedButton(
+                        child: Text('Biscuit'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => productsPage('Biscuit')));
+                        }),  
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget categorygrid() {
-    return category != null
-        ? SizedBox(
-            height: temp31,
-            width: (MediaQuery.of(context).size.width) * 0.90,
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-              ),
-              itemCount: category.documents.length,
-              itemBuilder: (_, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xffffffff),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0.00, 3.00),
-                          color: Color(0xff000000).withOpacity(0.09),
-                          blurRadius: 30,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(33.00),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context,
-                                category.documents[index].data['path']);
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(height: 10),
-                                  Container(
-                                    child: Image.network(
-                                      category.documents[index].data['image'],
-                                      height: 120.0,
-                                      width: 120.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    category.documents[index].data['name'],
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          )
-        : Center(
-            child: CircularProgressIndicator(),
-          );
-  }
-
   String greetings() {
     var now;
     now = DateTime.now().hour;

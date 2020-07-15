@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradeapp/main.dart';
-import 'package:tradeapp/pages/newuihome.dart';
 import 'package:tradeapp/services/authservice.dart';
 
 class SigninPage extends StatefulWidget {

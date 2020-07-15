@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:tradeapp/pages/signinpage.dart';
 import 'package:tradeapp/services/authservice.dart';
 
@@ -22,42 +23,26 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          DetailsCard(),
-          Container(
-            height: 1,
-            color: Colors.grey,
-          ),
-          MiddleOne(),
-          Container(height: 1, color: Colors.grey),
-          OptionsList(),
-        ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            DetailsCard(),
+            // Container(
+            //   height: 1,
+            //   color: Colors.grey,
+            // ),
+            // MiddleOne(),
+            // Container(height: 1, color: Colors.grey),
+            OptionsList(),
+          ],
+        ),
       ),
       backgroundColor: Colors.white,
     );
   }
-  Widget MiddleOne() {
-    return Row(
-      children: [
-        Container(
-          height: 100,
-          width: 195,
-          child: Center(child: Text('')),
-        ),
-        Container(
-          height: 100,
-          width: 1,
-          color: Colors.grey,
-        ),
-        Container(
-          height: 100,
-          width: 195,
-        ),
-      ],
-    );
-  }
 
+  // ignore: non_constant_identifier_names
   Widget OptionsList() {
     return Container(
         height: 380,
@@ -81,7 +66,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 30),
                         Text(
                           'Your Favourites',
-                          style: TextStyle(fontFamily:'Poppins',fontSize:20),
+                          style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff283593))
                         )
                       ],
                     ),
@@ -98,7 +87,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 30),
                         Text(
                           'Payment',
-                          style:TextStyle(fontFamily:'Poppins',fontSize:20),
+                          style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff283593))
                         )
                       ],
                     ),
@@ -115,7 +108,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 30),
                         Text(
                           'Tell Your Friend',
-                          style: TextStyle(fontFamily:'Poppins',fontSize:20),
+                          style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff283593))
                         )
                       ],
                     ),
@@ -132,7 +129,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 30),
                         Text(
                           'Promotions',
-                          style: TextStyle(fontFamily:'Poppins',fontSize:20),
+                          style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff283593))
                         )
                       ],
                     ),
@@ -147,20 +148,20 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.blueAccent,
                         ),
                         SizedBox(width: 30),
-                        Text(
-                          'Settings',
-                          style:TextStyle(fontFamily:'Poppins',fontSize:20),
-                        )
+                        Text('Settings',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff283593)))
                       ],
                     ),
                   ),
                   SizedBox(height: 30),
-                  SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
                       signOutGoogle().whenComplete(() {
-                        Navigator.pop(context,
-                            true); 
+                        Navigator.pop(context, true);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => SigninPage()),
@@ -176,7 +177,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 30),
                         Text(
                           'Log out',
-                          style: TextStyle(fontFamily:'Poppins',fontSize:20),
+                          style:TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.red)
                         )
                       ],
                     ),
@@ -205,14 +210,20 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
             left: 140,
             top: 50,
-            child: Text(name,
-                style: TextStyle(fontFamily:'Poppins',fontSize:20),),
+            child: Text(
+              name,
+              style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff283593)),
+            ),
           ),
           Positioned(left: 70, top: 155, child: Text(phonenumber)),
           Positioned(
             top: 150,
             left: 30,
-            child: Icon(
+            child: Icon(              
               Icons.phone,
               color: Colors.grey,
             ),
